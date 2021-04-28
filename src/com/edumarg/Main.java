@@ -56,16 +56,14 @@ public class Main {
 
     public static int calculatePeriodMonths(int periodYears){
         final byte MONTHS_IN_A_YEAR = 12;
-        int periodMonth = periodYears * MONTHS_IN_A_YEAR;
-        return periodMonth;
+        return periodYears * MONTHS_IN_A_YEAR;
     }
 
     public static float calculateMonthlyRate(float annualInterestRate){
         final byte MONTHS_IN_A_YEAR = 12;
         final byte PERCENTAGE = 100;
         float monthlyInterestRate = annualInterestRate / MONTHS_IN_A_YEAR;
-        float ratePercentage = monthlyInterestRate / PERCENTAGE;
-        return ratePercentage;
+        return monthlyInterestRate / PERCENTAGE;
     }
 
 
