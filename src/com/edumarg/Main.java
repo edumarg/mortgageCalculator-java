@@ -29,7 +29,7 @@ public class Main {
         System.out.println("MORTGAGE");
         System.out.println("--------");
         String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
-        System.out.println("Mortgage: " + mortgageFormatted);
+        System.out.println("Monthly Payments: " + mortgageFormatted);
 
         System.out.println(" ");
         System.out.println("PAYMENT SCHEDULE");
