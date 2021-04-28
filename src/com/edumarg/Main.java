@@ -4,6 +4,8 @@ import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class Main {
+    final static byte MONTHS_IN_A_YEAR = 12;
+    final static byte PERCENTAGE = 100;
 
     public static void main(String[] args) {
 
@@ -23,24 +25,30 @@ public class Main {
         int periodMonths = calculatePeriodMonths(periodYears);
         float monthlyRate = calculateMonthlyRate(annualInterestRate);
 
-        double mortgage = calculateMortgage(principal, monthlyRate, periodMonths);
+        printMortgage(principal, periodMonths, monthlyRate);
+        printPaymentsSchedule(principal, periodMonths, monthlyRate);
+    }
 
+    private static void printMortgage(int principal, int periodMonths, float monthlyRate) {
+        double mortgage = calculateMortgage(principal, monthlyRate, periodMonths);
         System.out.println(" ");
         System.out.println("MORTGAGE");
         System.out.println("--------");
         String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
         System.out.println("Monthly Payments: " + mortgageFormatted);
+    }
 
+    private static void printPaymentsSchedule(int principal, int periodMonths, float monthlyRate) {
         System.out.println(" ");
         System.out.println("PAYMENT SCHEDULE");
         System.out.println("----------------");
-        for (int i = 1; i <= periodMonths; i++ ){
-            double balance = getBalance(principal,monthlyRate,periodMonths,i);
-            String balancedFormatted = NumberFormat.getCurrencyInstance().format(balance);
-            System.out.println("Balance after " + i + " payments: " + balancedFormatted);
+        for (short i = 1; i <= periodMonths; i++ ){
+            double balance = getBalance(principal, monthlyRate, periodMonths,i);
+            String balanceFormatted = NumberFormat.getCurrencyInstance().format(balance);
+            System.out.println("Balance after " + i + " payments: " + balanceFormatted);
         }
-
     }
+
 
     public static double readNumber(String inputMessage, double minValue , double maxValue){
         Scanner scanner = new Scanner(System.in);
@@ -54,14 +62,13 @@ public class Main {
         }
     }
 
+
     public static int calculatePeriodMonths(int periodYears){
-        final byte MONTHS_IN_A_YEAR = 12;
         return periodYears * MONTHS_IN_A_YEAR;
     }
 
+
     public static float calculateMonthlyRate(float annualInterestRate){
-        final byte MONTHS_IN_A_YEAR = 12;
-        final byte PERCENTAGE = 100;
         float monthlyInterestRate = annualInterestRate / MONTHS_IN_A_YEAR;
         return monthlyInterestRate / PERCENTAGE;
     }
@@ -79,8 +86,8 @@ public class Main {
         double calcDivisor = Math.pow(1 + ratePercentage,periodMonth) * ratePercentage;
         double calcDividend = Math.pow(1 + ratePercentage,periodMonth) - 1;
         return principal * calcDivisor / calcDividend;
-
     }
+
 
     public static double getBalance( int principal , float ratePercentage, int periodMonth, int paymentsMade){
 
@@ -97,6 +104,6 @@ public class Main {
         double balance = principal * calcDivisor / calcDividend;
         if (balance <= 0) return 0;
         return balance;
-
     }
+
 }
