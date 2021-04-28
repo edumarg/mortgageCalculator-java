@@ -6,11 +6,16 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        int principal = setPrincipal(scanner);
-        float annualInterestRate = setInterestRate(scanner);
-        byte periodYears = setPeriod(scanner);
+        int principal = (int)readNumber("Principal ($1K - $1M): ",
+                1000,
+                1_000_000);
+        float annualInterestRate = (float)readNumber("Annual Interest Rate (0.5-30): ",
+                0.5,
+                30);
+        byte periodYears = (byte)readNumber("Period (1-30 years): ",
+                1,
+                30);
 
         double mortgage = calculateMortgage(principal, annualInterestRate, periodYears);
 
@@ -19,40 +24,15 @@ public class Main {
 
     }
 
-    public static int setPrincipal(Scanner scanner){
-        int principal = 0;
+    public static double readNumber(String inputMessage, double minValue , double maxValue){
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.print("Principal ($1K - $1M): ");
-            principal = scanner.nextInt();
-            if (principal >= 1000 && principal <= 1_000_000) {
-                return principal;
+            System.out.print(inputMessage);
+            double input = scanner.nextDouble();
+            if (input >= minValue && input <=maxValue) {
+                return input;
             }
-            System.out.println("Enter a number between 1,000 and 1,000,000");
-        }
-
-    }
-
-    public static float setInterestRate( Scanner scanner){
-        float annualInterestRate = 0.0F;
-        while (true) {
-            System.out.print("Annual Interest Rate (0-30): ");
-            annualInterestRate = scanner.nextFloat();
-            if (annualInterestRate > 0 && annualInterestRate <= 30) {
-                return annualInterestRate;
-            }
-            System.out.println("Enter a value greater than 0 and less or equal than 30");
-        }
-    }
-
-    public static byte setPeriod(Scanner scanner){
-        byte periodYears = 0;
-        while (true) {
-            System.out.print("Period (1-30 years): ");
-            periodYears = scanner.nextByte();
-            if (periodYears >= 1 && periodYears <=30) {
-                return periodYears;
-            }
-            System.out.println("Enter a value between 1-30");
+            System.out.println("Enter a number between " + minValue + " and " + maxValue);
         }
     }
 
